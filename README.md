@@ -1,9 +1,2 @@
-<strong> **DO NOT DISTRIBUTE OR PUBLICLY POST SOLUTIONS TO THESE LABS. MAKE ALL FORKS OF THIS REPOSITORY WITH SOLUTION CODE PRIVATE. PLEASE REFER TO THE STUDENT CODE OF CONDUCT AND ETHICAL EXPECTATIONS FOR COLLEGE OF INFORMATION TECHNOLOGY STUDENTS FOR SPECIFICS. ** </strong>
-# WESTERN GOVERNORS UNIVERSITY 
-## D280 – JAVASCRIPT PROGRAMMING
-#Student ID - 012317764
-#Angular Version - 19.0.5
-Welcome to JavaScript Programming! 
-For specific task instructions and requirements for this assessment, please refer to the course page.
- 
+![image](https://github.com/user-attachments/assets/77448f64-f70f-4148-b860-80d12d95dbec)
 
