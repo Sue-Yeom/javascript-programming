@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { Component, AfterViewInit, ViewEncapsulation } from '@angular/core';
+
 
 @Component({
   selector: 'app-map',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  template: `
+    encapsulation: ViewEncapsulation.None,
+
+    template: `
     <div class="container">
       <!-- Column 1: Interactive Map -->
       <div class="column map-container">
@@ -548,12 +553,22 @@ import { FormsModule } from '@angular/forms';
     </div>
   `,
   styles: [
-    `
+    `:host ::ng-deep svg path:hover {
+        filter: brightness(1.35);
+    }
       .container {
         display: flex;
         flex-direction: row;
         gap: 20px;
       }
+    svg path {
+        transition: opacity .15s ease;
+        cursor: pointer;
+    }
+    svg path:hover {
+        opacity: .55;              /* 밝아진 것처럼 보임 */
+        /* 또는 stroke:#fff; stroke-width:.7 */
+    }
       .column {
         flex: 1;
       }
@@ -583,11 +598,41 @@ import { FormsModule } from '@angular/forms';
     `
   ]
 })
-export class MapComponent {
+export class MapComponent implements AfterViewInit  {
   countryCode: string = 'US';
   countryData: any;
 
-  constructor(private http: HttpClient) {}
+    assignedColors: Record<string, string> = {};
+
+    ngAfterViewInit(): void {
+        const paths = document.querySelectorAll<SVGPathElement>('svg path');
+
+        paths.forEach(p => {
+            const code = p.id?.toUpperCase() ?? this.getRandomKey();
+            const color = this.getColorForCountry(code);
+
+            p.style.fill = color;
+            p.style.transition = 'fill 0.15s ease';
+            p.style.cursor = 'pointer';
+        });
+    }
+
+    // 나라별로 고유한 색을 할당하는 함수
+    getColorForCountry(code: string): string {
+        if (!this.assignedColors[code]) {
+            const hue = (Object.keys(this.assignedColors).length * 47) % 360;
+            this.assignedColors[code] = `hsl(${hue}, 65%, 55%)`;
+        }
+        return this.assignedColors[code];
+    }
+
+    // ID 없는 path를 대비한 임시 ID 생성
+    getRandomKey(): string {
+        return `C${Math.floor(Math.random() * 9999)}`;
+    }
+
+
+    constructor(private http: HttpClient) {}
 
   /**
    * Event handler for clicking on the map.
