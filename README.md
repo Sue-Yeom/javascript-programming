@@ -57,14 +57,6 @@ src/
   <li>💻 Responsive 2-column layout: map + info panel</li>
 </ul>
 
-<hr/>
+<h3>🗺️ World Map Preview</h3>
+<img src="images/12.png" alt="World Map" width="500"/>
 
-
-
-
-<h2>🎬 Demo</h2>
-
-<p> Screenshot from the video demonstration of the application:</p>
-
-
-<hr/>
